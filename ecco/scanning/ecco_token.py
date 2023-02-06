@@ -2,7 +2,6 @@ from enum import Enum
 
 
 class TokenType(Enum):
-
     UNKNOWN_TOKEN = "unknown token"
 
     # Operators
@@ -13,6 +12,7 @@ class TokenType(Enum):
 
     # Literals
     INTEGER_LITERAL = "integer literal"
+    EOF = "end of file"
 
     def __str__(self) -> str:
         return self.value
