@@ -20,7 +20,7 @@ def parse_terminal_node():
         return output
     else:
         raise EccoSyntaxError(
-            f'Received "{str(GLOBAL_SCANNER.current_token.type)}" instead of terminal Token'
+            f'Received "{str(GLOBAL_SCANNER.current_token.type)}" instead of terminal token'
         )
 
 
