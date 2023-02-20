@@ -1,16 +1,63 @@
-from .scanning import Scanner
-from .utils import get_args, setup_tracebacks
+from .scanning import Scanner, TokenType
+from .utils import get_args, setup_tracebacks, EccoFatalException
+from .ecco_ast import ASTNode
 
 DEBUG = True
 
 
 def main():
-    """Entrypoint for the compiler"""
+    """Entry point for the compiler"""
+    global GLOBAL_SCANNER
     args = get_args()
 
-    with Scanner(args.PROGRAM) as scanner:
-        setup_tracebacks()
-        scanner.scan_file()
+    GLOBAL_SCANNER = Scanner(args.PROGRAM)
+    GLOBAL_SCANNER.open()
+    setup_tracebacks()
+    GLOBAL_SCANNER.scan()
+
+    # This import is used to avoid "AttributeError: partially initialized module" errors with GLOBAL_SCANNER
+    from .parsing import parse_binary_expression
+
+    parsed_ast = parse_binary_expression()
+
+    def interpret_ast(root_node):
+        """
+        Recursively steps through the AST and executes the operations on the nodes
+
+        Args:
+            root_node (ASTNode): Root node of the AST to be stepped through
+        Raises:
+            EccoFatalException: If the Token found is of an unknown (uninterpretable) type
+        Returns:
+            The value of the interpreted node of the tree
+        """
+
+        # Recursively interpret both sides of the root node (if they exist)
+        if root_node.left:
+            left_value = interpret_ast(root_node.left)
+        if root_node.right:
+            right_value = interpret_ast(root_node.right)
+
+        if root_node.token.type == TokenType.INTEGER_LITERAL:
+            return root_node.token.value
+        elif root_node.token.type == TokenType.PLUS:
+            return left_value + right_value
+        elif root_node.token.type == TokenType.MINUS:
+            return left_value - right_value
+        elif root_node.token.type == TokenType.STAR:
+            return left_value * right_value
+        elif root_node.token.type == TokenType.SLASH:
+            return (
+                left_value // right_value
+            )  # ECCO currently only handles integer division
+        else:
+            raise EccoFatalException(
+                "FATAL", f"Unknown token encountered: {str(root_node.token.type)}"
+            )
+
+    print(interpret_ast(parsed_ast))
+
+    GLOBAL_SCANNER.close()
 
 
 if __name__ == "__main__":
