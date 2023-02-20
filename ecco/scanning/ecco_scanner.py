@@ -47,7 +47,7 @@ class Scanner:
         self.__enter__()
 
     def close(self):
-        self.__exit__()
+        self.__exit__(None, None, None)
 
     def next_character(self) -> str:
         """Get the next character from the input stream

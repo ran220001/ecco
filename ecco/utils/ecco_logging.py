@@ -14,7 +14,7 @@ ERROR_YELLOW = ANSI_YELLOW + ANSI_BOLD
 def setup_tracebacks() -> None:
     from ..ecco import DEBUG
 
-    if DEBUG:
+    if not DEBUG:
         sys.tracebacklimit = 0
 
 
