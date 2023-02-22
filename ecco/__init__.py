@@ -1,6 +1,5 @@
 from .scanning import Scanner, Token, TokenType
 from .ecco import DEBUG
-from .ecco_ast import ASTNode, new_ast_node, new_unary_ast_node
 from .utils import (
     arguments,
     EccoFatalException,
@@ -14,9 +13,6 @@ __all__ = [
     "Token",
     "TokenType",
     "DEBUG",
-    "ASTNode",
-    "new_ast_node",
-    "new unary_ast_node",
     "arguments",
     "ecco_logging",
     "EccoFatalException",

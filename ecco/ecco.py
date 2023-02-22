@@ -1,6 +1,5 @@
 from .scanning import Scanner, TokenType
 from .utils import get_args, setup_tracebacks, EccoFatalException
-from .ecco_ast import ASTNode
 
 DEBUG = True
 
@@ -15,8 +14,8 @@ def main():
     setup_tracebacks()
     GLOBAL_SCANNER.scan()
 
-    # This import is used to avoid "AttributeError: partially initialized module" errors with GLOBAL_SCANNER
-    from .parsing import parse_binary_expression
+    # The parse_binary_expression import is used to avoid "AttributeError: partially initialized module" errors with GLOBAL_SCANNER
+    from .parsing import ASTNode, parse_binary_expression
 
     parsed_ast = parse_binary_expression()
 

@@ -1,6 +1,6 @@
 # AST implementation
 
-from .scanning import Token
+from ..scanning import Token
 from copy import deepcopy
 
 

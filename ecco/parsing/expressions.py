@@ -1,5 +1,5 @@
 from ..ecco import GLOBAL_SCANNER
-from ..ecco_ast import ASTNode, new_ast_node
+from .ecco_ast import ASTNode, new_ast_node
 from ..scanning import Token, TokenType
 from ..utils import EccoSyntaxError
 
