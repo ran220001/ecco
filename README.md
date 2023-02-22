@@ -1,5 +1,5 @@
 # ecco
-An `Educational C COmpiler` written in Python, written for use in my Practical Compiler Design course.
+An `Educational C COmpiler` written in Python, written for use in Charles Averill's Practical Compiler Design course.
 
 ## Installation
 
