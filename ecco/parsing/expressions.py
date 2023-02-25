@@ -31,6 +31,25 @@ def parse_terminal_node():
         )
 
 
+def check_token_precedence(node_type):
+    """
+    Checks whether the given token has a valid precedence
+
+    Args:
+        node_type (ASTNode): The type of the node to be checked
+
+    Raises:
+        EccoSyntaxError: If node_type is not a valid type of operator
+
+    Returns:
+        int: The precedence of the given node type
+    """
+    if node_type in OPERATOR_PRECEDENCE:
+        return OPERATOR_PRECEDENCE[node_type]
+    else:
+        raise EccoSyntaxError(f"Expected operator but got {node_type}")
+
+
 def parse_binary_expression(
     previous_token_precedence=max(OPERATOR_PRECEDENCE.values()) + 1,
 ):
@@ -64,7 +83,7 @@ def parse_binary_expression(
     """
 
     # While the precedence of the current token is less than the precedence of the previously encountered token:
-    while OPERATOR_PRECEDENCE[node_type] < previous_token_precedence:
+    while check_token_precedence(node_type) < previous_token_precedence:
         # Scan the next token
         GLOBAL_SCANNER.scan()
 
