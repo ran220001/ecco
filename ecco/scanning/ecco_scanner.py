@@ -117,10 +117,11 @@ class Scanner:
 
         return int(in_string)
 
-    def scan(self) -> Token:
+    def scan(self, c="", current_token=Token()) -> Token:
         """Scan the next token
 
         Args:
+            c (str): The sequence of characters currently being scanned
             current_token (Token): Global Token object to scan data into
 
         Raises:
@@ -129,8 +130,9 @@ class Scanner:
         Returns:
             Token: A Token object containing the scanned data
         """
-        c: str = self.skip()
-        self.current_token = Token()
+        c: str = c + self.skip()
+
+        self.current_token = current_token
 
         # Check for EOF
         if c == "":
@@ -139,7 +141,7 @@ class Scanner:
 
         possible_token_types: List[TokenType] = []
         for token_type in TokenType:
-            if str(token_type)[0] == c:
+            if str(token_type)[0 : len(c)] == c:
                 possible_token_types.append(token_type)
 
         if not len(possible_token_types):
@@ -149,9 +151,14 @@ class Scanner:
             else:
                 raise EccoSyntaxError(f'Unrecognized token "{c}"')
         else:
-            if len(c) == 1:
-                self.current_token.type = possible_token_types[0]
-                return self.current_token
+            if len(possible_token_types) == 1:
+                if c == possible_token_types[0].value:
+                    self.current_token.type = possible_token_types[0]
+                    return self.current_token
+                else:
+                    self.scan(
+                        c, self.current_token
+                    )  # Recursively scan the next character until either the possible token is matched or no possible tokens exist
             else:
                 pass
 

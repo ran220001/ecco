@@ -49,6 +49,10 @@ def main():
             return (
                 left_value // right_value
             )  # ECCO currently only handles integer division
+        elif root_node.token.type == TokenType.LEFT_SHIFT:
+            return left_value << right_value
+        elif root_node.token.type == TokenType.RIGHT_SHIFT:
+            return left_value >> right_value
         else:
             raise EccoFatalException(
                 "FATAL", f"Unknown token encountered: {str(root_node.token.type)}"

@@ -9,6 +9,8 @@ class TokenType(Enum):
     MINUS = "-"
     STAR = "*"
     SLASH = "/"
+    LEFT_SHIFT = "<<"
+    RIGHT_SHIFT = ">>"
 
     # Literals
     INTEGER_LITERAL = "integer literal"

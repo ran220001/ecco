@@ -8,6 +8,8 @@ OPERATOR_PRECEDENCE = {
     TokenType.MINUS: 4,
     TokenType.STAR: 3,
     TokenType.SLASH: 3,
+    TokenType.LEFT_SHIFT: 5,
+    TokenType.RIGHT_SHIFT: 5,
 }
 
 
