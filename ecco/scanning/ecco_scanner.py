@@ -154,7 +154,6 @@ class Scanner:
             if len(possible_token_types) == 1:
                 if c == possible_token_types[0].value:
                     self.current_token.type = possible_token_types[0]
-                    return self.current_token
                 else:
                     self.scan(
                         c, self.current_token
