@@ -6,7 +6,7 @@ from typing import List
 from ..scanning import Token, TokenType
 from ..utils import EccoFatalException
 from .llvmstackentry import LLVMStackEntry
-from .llvmvalue import LLVMValue, LLVMValueType
+from .llvm_value import LLVMValue, LLVMValueType
 from ..ecco import ARGS
 from .translate import (
     LLVM_LOADED_REGISTERS,

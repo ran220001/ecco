@@ -1,4 +1,5 @@
 # Created by Charles Averill
+# Modified by Rishi Nambair
 
 from argparse import ArgumentParser, Namespace
 from pathlib import Path
@@ -8,9 +9,9 @@ def get_args() -> Namespace:
     """Parse and return arguments
 
     Returns:
-        Namespace: Parsed argu
+        Namespace: Parsed arguments
     """
-    distribution = "0.1" #pkg_resources.get_distribution("ecco")
+    distribution = "0.1"  # pkg_resources.get_distribution("ecco")
 
     parser = ArgumentParser(
         prog="ecco " + distribution,
